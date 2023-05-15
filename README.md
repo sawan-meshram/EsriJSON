@@ -202,6 +202,15 @@ EsriJsonWriter writer = new EsriJsonWriter();
 String json = writer.write(g);
 System.out.println(json);
 ```
+### Updates
+* If JSON contains more the one Polygon,the EsriReader only return JTS Polygon geometry. If user want to check if it is MultiPolygon, then user has to check and convert this Polygon to MultiPolygon.
+```
+Geometry g = reader.read(multipolygonWithHolesAndOtherPoly); //multipolygonWithHolesAndOtherPoly is input EsriJSON
+System.out.println(g);
+Polygon p1 = (Polygon)g;
+Geometry g1 = EsriGeometryUtil.convertPolygonOrMultiPolygon(p1);
+System.out.println(g1);
+```
 
 ## Notes
 Currently, future objectives to develop
