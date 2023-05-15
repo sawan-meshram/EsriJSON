@@ -182,3 +182,31 @@ After reading, result in JTS Polyogn Geometry as follows
 ```
 POLYGON ((-97.13141441345215 32.77385236175715, -97.12450504302979 32.77569261707643, -97.11291790008544 32.7747905358906, -97.11502075195312 32.76916134273928, -97.13141441345215 32.77385236175715), (-97.12358236312866 32.77457403504532, -97.12469816207887 32.773509564895136, -97.1170163154602 32.77228270214884, -97.11450576782227 32.7731487246666, -97.12358236312866 32.77457403504532), (-97.11066484451294 32.77343739696647, -97.10875511169435 32.774213199132774, -97.10819721221924 32.77201206838387, -97.10909843444824 32.76964849852645, -97.10989236831665 32.770460418913416, -97.11066484451294 32.77343739696647))
 ```
+
+## Example code for reading and writing the EsriJSON
+
+### EsriJsonReader
+```
+EsriJsonReader reader = new EsriJsonReader();
+String point = "{\"x\":-103.20762634277341,\"y\":35.04658137962862,\"spatialReference\":{\"wkid\":4326}}";
+Geometry g = reader.read(point);
+System.out.println(g);
+```
+
+### EsriJsonWriter
+```
+String point = "POINT(-103.56811523437501 35.37113502280101)";
+Geometry g = GeometryUtil.toGeometry(point);
+g.setSRID(4326);
+EsriJsonWriter writer = new EsriJsonWriter();
+String json = writer.write(g);
+System.out.println(json);
+```
+
+## Notes
+Currently, future objectives to develop
+* EsriJsonWriter is not supported to write GeometryCollection JTS object.
+* EsriJsonWriter is not supported to write Envelope JTS object.
+* EsriJsonReader is not supported to read Envelope EsriJSON.
+* EsriJsonReader can not distinguish EsriJSON contains either single Polygon or MultiPolygon, it's only able to give as a Polygon.
+
